@@ -1,5 +1,8 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE)
+{
+    session_start();
+}
 function login($username, $password)
 {
     $db_username= 'admin';
@@ -21,10 +24,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     if(login($username, $password))
     {
         $_SESSION['username'] = $username;
-        header("Location: dashboard.php");
+        header("Location: /dashboard.php");
     }else{
-        header("Location: index.php");
+        header("Location: /index.php");
     }
 }else{
-    header("Location: index.php");
+    header("Location: /index.php");
 }

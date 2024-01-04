@@ -1,11 +1,10 @@
+<?php include $_SERVER["DOCUMENT_ROOT"] .'/../middleware/guard.php'; ?>
 <?php 
-    session_start();
-    if(!isset($_SESSION['username']))
+    if (session_status() === PHP_SESSION_NONE)
     {
-        header("Location: index.php");
+        session_start();
     }
     $username = $_SESSION['username'];
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,12 +15,13 @@
     <title>Dashboard</title>
 </head>
 <body>
-   <main class="main-container">
-         <h1>Dashboard</h1>
-         <?php echo "<p>Welcome, $username</p>"; ?>
+    <?php include './src/components/nav/main-menu.php'; ?>
+    <main class="main-container">
+        <h1>Dashboard</h1>
+        <?php echo "<p>Welcome, $username</p>"; ?>
 
-         <form method="post" action="logout.php">
-             <input type="submit" value="Log Out" class="login-form-button">
+        <form method="post" action="/auth/logout.php">
+            <input type="submit" value="Log Out" class="login-form-button">
         </form>
     </main> 
 </body>
